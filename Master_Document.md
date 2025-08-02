@@ -332,85 +332,149 @@
 
 ## 📊 **SECTION D: ALL FIGURES AND TABLES REGISTRY**
 
-### **D1: Main Figures (Publication Quality)**
+### **D1: Main Figures (Publication Quality) - ACTUAL FILE LOCATIONS**
 
 #### **Figure 1: Dataset Overview and Statistics**
-- **File Location:** `plots/data_exploration/`
-- **Content:** Protein length distribution, amino acid composition, class balance
+**Available files:**
+- `./results/exp_3/plots/data_exploration/amino_acid_distribution.png`
+- `./results/exp_3/plots/data_exploration/class_balance_verification.png`
+- `./results/exp_3/plots/data_exploration/phosphorylation_site_distribution.png`
+- `./results/exp_3/plots/data_exploration/sequence_length_distribution.png`
 - **Chapter Usage:** Introduction, Methods
 - **Caption:** "Dataset characteristics of 62,120 phosphorylation sites from 7,511 proteins..."
 
 #### **Figure 2: Feature Analysis Comparison**
-- **File Location:** `plots/feature_analysis/`
-- **Content:** 4-panel analysis (performance, efficiency, memory, effectiveness)
+**Available files:**
+- `./results/exp_2/plots/feature_analysis/correlation_heatmap.png`
+- `./results/exp_2/plots/feature_analysis/extraction_time_comparison.png`
+- `./results/exp_2/plots/feature_analysis/feature_count_comparison.png`
+- `./results/exp_2/plots/feature_analysis/feature_variance_distribution.png`
 - **Chapter Usage:** Results, Methods
 - **Caption:** "Comprehensive analysis of five feature extraction methods..."
 
-#### **Figure 3: ML Models Performance Heatmap**
-- **File Location:** `plots/ml_models/performance_heatmap.png`
-- **Content:** 5×6 model-feature performance matrix with F1 scores
+#### **Figure 3: ML Models Performance Analysis**
+**Available files:**
+- `./results/exp_2/plots/ml_models/performance_heatmap.png`
+- `./results/exp_3/plots/ml_models/performance_comparison.png`
+- `./results/exp_3/plots/ml_models/performance_matrix.png`
+- `./results/exp_2/plots/ml_models/roc_curves_comparison.png`
 - **Chapter Usage:** Results
 - **Caption:** "Machine learning model performance across feature types..."
 
 #### **Figure 4: Transformer Training Analysis**
-- **File Location:** `plots/transformers/training_curves.png`
-- **Content:** Training/validation curves for loss, accuracy, F1, precision, recall, AUC
+**Available files:**
+- `./results/exp_3/transformers/transformer_v1_20250703_112558/plots/training_curves.png`
+- `./results/exp_3/transformers/transformer_v1_20250703_112558/plots/confusion_matrix.png`
+- `./results/exp_3/transformers/transformer_v2_20250704_102324/plots/training_curves.png`
+- `./results/exp_3/transformers/transformer_v2_20250704_102324/plots/confusion_matrix.png`
+- `./results/exp_3/transformers/comparison_plots/model_comparison.png`
+- `./results/exp_3/transformers/comparison_plots/training_efficiency.png`
 - **Chapter Usage:** Results, Methods
 - **Caption:** "Training dynamics of transformer models showing overfitting patterns..."
 
 #### **Figure 5: Error Analysis Comprehensive**
-- **File Location:** `plots/error_analysis/comprehensive_error_analysis.png`
-- **Content:** Model performance hierarchy, diversity metrics, consensus analysis
+**Available files:**
+- `./results/exp_3/plots/error_analysis/comprehensive_error_analysis.png`
+- `./results/exp_3/plots/error_analysis/consensus_analysis.png`
+- `./results/exp_3/plots/error_analysis/error_correlation_matrix.png`
+- `./results/exp_3/plots/error_analysis/error_rate_comparison.png`
 - **Chapter Usage:** Results, Discussion
 - **Caption:** "Comprehensive error analysis of 9 models revealing complementary patterns..."
 
-#### **Figure 6: Ensemble Performance Comparison**
-- **File Location:** `plots/ensemble/performance_comparison.png`
-- **Content:** Individual vs. ensemble performance, improvement quantification
+#### **Figure 6: Ensemble Performance Analysis**
+**Available files:**
+- `./results/exp_3/plots/ensemble/method_type_comparison.png`
+- `./results/exp_3/plots/ensemble/performance_heatmap.png` (also available as PDF)
+- `./results/exp_3/plots/ensemble/weight_distributions.png`
 - **Chapter Usage:** Results
 - **Caption:** "Ensemble methods achieving performance improvements over individual models..."
 
-#### **Figure 7: ROC Curves Final Comparison**
-- **Content:** ROC curves for best models (TransformerV1, ML Combined, Best Ensemble)
-- **Chapter Usage:** Results
-- **Caption:** "ROC analysis of top-performing models demonstrating discrimination ability..."
-
-#### **Figure 8: Feature Importance Analysis**
-- **Content:** Cross-model feature importance with biological interpretation
+#### **Figure 7: Feature Importance Analysis**
+**Available files:**
+- `./results/exp_2/plots/ml_models/feature_importance_comparison.png`
+- `./results/exp_3/plots/ml_models/feature_importance.png`
+- `./results/exp_3/plots/ml_models/ensemble_weights.png`
 - **Chapter Usage:** Discussion
 - **Caption:** "Feature importance analysis revealing biological patterns..."
 
-### **D2: Main Tables (LaTeX Ready)**
+#### **Figure 8: TabNet Optimization Analysis**
+**Available files:**
+- `./results/exp_3/results/tabnet_optuna/optimization_analysis.png`
+- **Chapter Usage:** Methods (if included), Discussion
+- **Caption:** "TabNet hyperparameter optimization results showing limited performance..."
+
+#### **Additional Available Figures:**
+**Experiment 1 plots:**
+- `./results/exp_1/plots/data_exploration/` (5 files)
+- `./results/exp_1/plots/feature_analysis/` (7 files including TPC reduction)
+- `./results/exp_1/plots/ml_models/` (4 files)
+
+**Note:** Multiple experiments (exp_1, exp_2, exp_3) have similar plot structures - use the most recent/complete versions from exp_3 for main figures.
+
+### **D2: Main Tables (CSV and LaTeX Ready) - ACTUAL FILE LOCATIONS**
 
 #### **Table 1: Dataset Statistics**
-- **Content:** Complete dataset breakdown, splits, quality metrics
+**Available files:**
+- `./results/exp_3/tables/dataset_statistics.csv`
+- `./results/exp_3/tables/amino_acid_distribution.csv`
+- `./results/exp_3/tables/sequence_length_stats.csv`
 - **Chapter Usage:** Methods
 - **Key Values:** 62,120 samples, 7,511 proteins, perfect balance
 
-#### **Table 2: Feature Extraction Summary**
-- **Content:** 5 feature types with dimensions, extraction time, performance
+#### **Table 2: Feature Extraction Performance**
+**Available files:**
+- `./results/exp_2/tables/feature_extraction_performance.csv`
+- `./results/exp_2/tables/feature_statistics.csv`
+- `./results/exp_2/tables/feature_correlation_summary.csv`
+- `./results/exp_3/tables/feature_extraction_performance.csv`
 - **Chapter Usage:** Methods, Results
 - **Key Insight:** Physicochemical best (F1=0.7803), TPC most improved (+38.7%)
 
 #### **Table 3: ML Models Complete Performance**
-- **Content:** All model-feature combinations with confidence intervals
+**Available files:**
+- `./results/exp_2/tables/individual_features_performance.csv`
+- `./results/exp_3/tables/ml_models_enhanced_results.csv`
 - **Chapter Usage:** Results
 - **Key Result:** Combined features F1=0.7736, Physicochemical F1=0.7803
 
-#### **Table 4: Transformer Models Performance**
-- **Content:** V1 vs V2 comparison with training characteristics
+#### **Table 4: Transformer Models Results**
+**Available files:**
+- `./results/exp_3/transformers/master_results.csv`
+- `./results/exp_3/transformers/summary_report.md`
+- Individual model results in respective transformer directories
 - **Chapter Usage:** Results
 - **Key Result:** V1 F1=80.25%, V2 F1=79.94%
 
-#### **Table 5: Error Analysis Summary**
-- **Content:** 9-model performance hierarchy with diversity metrics
+#### **Table 5: Error Analysis Results**
+**Available files:**
+- `./results/exp_3/tables/error_analysis/detailed_error_patterns.pkl` (needs conversion to CSV)
+- Error analysis results stored in checkpoints
 - **Chapter Usage:** Results, Discussion
 - **Key Insight:** Q-statistic 0.802, 51.2% split decisions
 
 #### **Table 6: Ensemble Methods Performance**
-- **Content:** All ensemble approaches with improvement quantification
+**Available files:**
+- `./results/exp_3/tables/ensemble/ensemble_comparison.csv`
+- `./results/exp_3/tables/ensemble/ensemble_predictions.csv`
+- `./results/exp_3/ensemble/comprehensive_tuning_timed/comprehensive_tuning_results.csv`
 - **Chapter Usage:** Results
 - **Key Result:** Best ensemble F1=81.60% (+1.35% improvement)
+
+#### **Additional Available Tables:**
+**Cross-validation and splitting:**
+- `./results/exp_1/tables/cv_fold_statistics.csv`
+- `./results/exp_2/tables/data_split_statistics.csv`
+
+**Training predictions (for ensemble analysis):**
+- `./results/exp_3/ensemble/training_predictions/` (5 CSV files for different models)
+
+**Feature matrices (if needed for analysis):**
+- `./results/exp_3/checkpoints/features/` (6 CSV files: aac, binary, combined, dpc, physicochemical, tpc)
+
+#### **Tables That May Need to be Generated:**
+- **Statistical significance table** (from checkpoint data)
+- **Complete transformer comparison** (from individual model files)
+- **Feature importance ranking** (from ML model results)
 
 ### **D3: Supplementary Materials**
 - **Supplementary Tables:** Complete hyperparameter grids, cross-validation details
