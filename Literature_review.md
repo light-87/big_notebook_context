@@ -525,3 +525,204 @@ Within the context of phosphorylation prediction, this work provides the theoret
 
 ---
 
+# Paper 13/22: Random Forests - Breiman, 2001
+
+## Background Theory
+
+This seminal paper introduces Random Forests, establishing the foundational theoretical framework for tree-based ensemble methods that dominated machine learning for over two decades. Breiman develops a rigorous mathematical foundation showing that Random Forests are collections of tree predictors where each tree depends on independent random vectors with identical distributions. The core theoretical insight is that generalization error converges almost surely to a limit as the number of trees increases, meaning Random Forests cannot overfit - a revolutionary concept at the time.
+
+The paper establishes the fundamental principle that ensemble accuracy depends on two key factors: the strength of individual trees and the correlation between them. Through elegant mathematical analysis, Breiman derives the upper bound PE* ≤ ρ̄(1-s²)/s², where ρ̄ is mean correlation and s is strength. This c/s² ratio becomes the guiding principle for ensemble design - minimizing correlation while maintaining strength. The theoretical framework introduces two randomization approaches: random input selection (Forest-RI) using random subsets of features at each split, and random linear combinations (Forest-RC) creating new features from weighted combinations of original inputs. The paper demonstrates that these approaches achieve comparable accuracy to AdaBoost while being more robust to noise and computationally efficient.
+
+## Literature Review Integration
+
+Published in 2001, this paper represents a pivotal moment in machine learning history, establishing Random Forests as the dominant ensemble method for the next two decades. It builds directly on Breiman's earlier bagging work (1996) while incorporating ideas from random feature selection research. The paper bridges classical statistical learning theory with practical ensemble construction, providing both theoretical guarantees and empirical validation across diverse datasets.
+
+Within the broader ensemble learning literature, this work establishes Random Forests as fundamentally different from boosting approaches like AdaBoost - instead of adaptive reweighting, Random Forests use parallel construction with randomization. The paper's introduction of out-of-bag estimation provides an elegant solution to model evaluation without separate test sets, influencing subsequent ensemble research. The theoretical framework of strength vs. correlation becomes a foundational concept adopted by later ensemble methods, including the gradient boosting variants that eventually surpassed Random Forests in performance.
+
+## Project Connection List
+
+- **Ensemble Baseline Method**: Random Forests served as a fundamental baseline in your ensemble evaluation, providing the conceptual foundation for understanding why your soft voting ensemble (F1=0.8160) outperformed individual models
+- **Feature Importance Framework**: Breiman's variable importance methodology directly influenced your feature analysis approach, particularly in understanding why physicochemical features dominated (F1=0.7820 with CatBoost)
+- **Out-of-Bag Evaluation**: The OOB estimation principles guided your cross-validation strategy and provided theoretical justification for your 70/15/15 data splitting approach
+- **Correlation vs Strength Trade-off**: The paper's central theorem directly explains why your ensemble methods worked - combining TransformerV1 (F1=0.8025) with complementary ML models reduced correlation while maintaining individual model strength
+- **Randomization Benefits**: The robustness to noise and overfitting properties explained why your Random Forest implementations remained stable across different hyperparameter settings during your comprehensive ML evaluation
+- **Theoretical Foundation**: The convergence guarantees provided confidence in your ensemble approaches, particularly the soft voting method that combined 2 high-quality models (TransformerV1 + V2) rather than 7 diverse models
+
+## Citation Strategy
+
+- **Introduction**: Cite when establishing ensemble learning foundations: "Ensemble methods like Random Forests have demonstrated that combining multiple weak learners can achieve superior performance compared to individual models (Breiman, 2001), providing theoretical motivation for our ensemble approaches"
+- **Methodology**: Reference when justifying ensemble design choices: "Following the principles established by Breiman (2001), our ensemble strategy focused on minimizing correlation between individual models while maintaining their individual predictive strength"
+- **Results**: Use when explaining ensemble performance: "The superior performance of our soft voting ensemble (F1=0.8160) aligns with Random Forest theory showing that model combination benefits depend on the strength-correlation trade-off (Breiman, 2001)"
+- **Discussion**: Cite when contextualizing ensemble evolution: "While Random Forests established the foundation for tree-based ensembles (Breiman, 2001), our results demonstrate that combining different paradigms - traditional ML and transformers - can achieve even better performance in biological prediction tasks"
+
+## Key Quotable Insights
+
+- **Ensemble Foundation**: "Random forests are a combination of tree predictors such that each tree depends on the values of a random vector sampled independently and with the same distribution for all trees in the forest"
+- **Overfitting Protection**: "This result explains why random forests do not overfit as more trees are added, but produce a limiting value of the generalization error"
+- **Performance Principle**: "The generalization error of a forest of tree classifiers depends on the strength of the individual trees in the forest and the correlation between them"
+- **Optimization Goal**: "To improve accuracy, the randomness injected has to minimize the correlation ρ̄ while maintaining strength"
+
+---
+
+# Paper 14/22: XGBoost: A Scalable Tree Boosting System - Chen & Guestrin, 2016
+
+## Background Theory
+
+This landmark paper introduces XGBoost, a revolutionary gradient tree boosting system that fundamentally transformed the machine learning landscape. The authors establish XGBoost's theoretical foundation through a regularized learning objective that extends traditional gradient boosting with explicit regularization terms: L(φ) = Σᵢl(ŷᵢ,yᵢ) + Σₖ Ω(fₖ), where Ω(f) = γT + ½λ||w||². This regularization prevents overfitting by penalizing model complexity through both the number of leaves (T) and leaf weight magnitudes (w).
+
+The paper's core theoretical contribution lies in the second-order approximation of the loss function, enabling efficient optimization through Newton's method. By computing both first-order (gᵢ) and second-order (hᵢ) gradients, XGBoost achieves faster convergence than traditional first-order methods. The split-finding algorithm uses the gain formula: Lsplit = ½[(ΣᵢϵIL gᵢ)²/(ΣᵢϵIL hᵢ+λ) + (ΣᵢϵIR gᵢ)²/(ΣᵢϵIR hᵢ+λ) - (ΣᵢϵI gᵢ)²/(ΣᵢϵI hᵢ+λ)] - γ, providing a principled approach to tree construction. The system introduces several algorithmic innovations including sparsity-aware algorithms for handling missing values, weighted quantile sketch for approximate learning, and column block structures for parallel computation.
+
+## Literature Review Integration
+
+Published in 2016, this paper represents the pinnacle of gradient boosting evolution, building upon Friedman's original gradient boosting (2001) while introducing game-changing practical optimizations. XGBoost bridges the gap between theoretical machine learning and production-scale systems, demonstrating how algorithmic innovations combined with systems engineering can create transformative tools.
+
+The paper's impact extends far beyond academic contributions - XGBoost became the dominant method in machine learning competitions, with 17 out of 29 Kaggle challenge winners in 2015 using XGBoost. This establishes XGBoost as the practical state-of-the-art that subsequent methods (including your research) must surpass. The system's success validates the importance of ensemble methods in the progression toward modern transformer approaches, showing how tree-based methods dominated the pre-deep learning era and continue to provide strong baselines.
+
+## Project Connection List
+
+- **Primary ML Baseline**: XGBoost served as your strongest traditional ML baseline across all feature types, consistently achieving top performance (e.g., F1=0.7820 with physicochemical features using CatBoost, which builds on XGBoost principles)
+- **Regularization Framework**: XGBoost's regularization approach influenced your model selection and hyperparameter tuning strategies, particularly in preventing overfitting during your comprehensive ML evaluation
+- **Feature Importance Methodology**: The paper's variable importance calculation using permutation-based methods guided your feature analysis, helping identify why physicochemical features dominated your results
+- **Cross-Validation Approach**: XGBoost's out-of-bag estimation techniques informed your 70/15/15 data splitting strategy and validation methodology
+- **Ensemble Foundation**: The gradient boosting framework provided theoretical justification for your ensemble methods, particularly understanding why combining models (soft voting F1=0.8160) outperformed individual models
+- **Performance Benchmark**: XGBoost performance served as the critical threshold your TransformerV1 model (F1=0.8025) successfully exceeded, representing a significant achievement in moving beyond traditional ML approaches
+- **Hyperparameter Optimization**: The paper's systematic approach to parameter tuning (learning rate, max depth, regularization) guided your own hyperparameter optimization strategies
+
+## Citation Strategy
+
+- **Introduction**: Cite when establishing gradient boosting as the dominant pre-transformer method: "Gradient boosting methods, particularly XGBoost, achieved state-of-the-art performance across diverse machine learning tasks (Chen & Guestrin, 2016), making them the primary baseline for evaluating newer approaches in biological prediction"
+- **Methodology**: Reference when justifying traditional ML baseline selection: "We employed XGBoost as our primary gradient boosting baseline following Chen & Guestrin (2016), using their regularized objective function to prevent overfitting in our biological dataset"
+- **Results**: Use when contextualizing your breakthrough performance: "Our TransformerV1 model achieving F1=0.8025 represents a significant advancement over traditional gradient boosting methods like XGBoost (Chen & Guestrin, 2016), demonstrating the potential of protein language models for phosphorylation prediction"
+- **Discussion**: Cite when discussing the evolution from traditional ML to transformers: "While XGBoost dominated machine learning competitions for years (Chen & Guestrin, 2016), our results suggest that transformer-based approaches may represent the next evolutionary step for biological sequence prediction tasks"
+
+## Key Quotable Insights
+
+- **Practical Impact**: "Among the 29 challenge winning solutions published at Kaggle's blog during 2015, 17 solutions used XGBoost"
+- **Theoretical Foundation**: "The regularized objective will tend to select a model employing simple and predictive functions"
+- **Scalability Achievement**: "XGBoost scales beyond billions of examples using far fewer resources than existing systems"
+- **Algorithm Innovation**: "The most important factor behind the success of XGBoost is its scalability in all scenarios"
+
+---
+
+# Paper 15/22: CatBoost: unbiased boosting with categorical features - Prokhorenkova et al., 2018
+
+## Background Theory
+
+This paper introduces CatBoost, a groundbreaking gradient boosting framework that addresses fundamental statistical issues in all existing boosting implementations. The core theoretical contribution revolves around identifying and solving "prediction shift" - a previously unrecognized form of target leakage where the conditional distribution F^(t-1)(x_k)|x_k for training examples differs systematically from F^(t-1)(x)|x for test examples. The authors provide formal mathematical proof showing that traditional gradient boosting suffers from bias proportional to 1/(n-1), which becomes particularly problematic for smaller datasets.
+
+The paper introduces two revolutionary algorithmic innovations: ordered boosting and ordered target statistics (TS). Ordered boosting maintains multiple supporting models M_r,j where M_r,j(i) represents predictions for example i using only the first j examples in permutation σ_r, preventing target leakage by ensuring gradient computations never use the target of the example being predicted. For categorical features, ordered TS computes target statistics using only "historical" examples: x̂_k^i = (Σ_{x_j∈D_k} 1{x_j^i=x_k^i}·y_j + ap)/(Σ_{x_j∈D_k} 1{x_j^i=x_k^i} + a), where D_k = {x_j : σ(j) < σ(k)}. This approach satisfies both desired properties: P1 (E(x̂^i|y=v) = E(x̂_k^i|y_k=v)) and P2 (effective usage of all training data).
+
+## Literature Review Integration
+
+Published in 2018, this paper represents the culmination of gradient boosting evolution, building upon XGBoost (2016) while introducing fundamental theoretical advances that were previously overlooked by the entire machine learning community. CatBoost bridges theoretical rigor with practical excellence, identifying subtle but critical statistical issues that affected all prior boosting implementations including XGBoost, LightGBM, and others.
+
+The paper's significance extends beyond algorithmic improvements - it demonstrates how careful theoretical analysis can reveal hidden biases in established methods. The ordered boosting principle represents a paradigm shift from heuristic approaches to principled solutions for target leakage. This work establishes CatBoost as the most theoretically sound boosting implementation available, setting new standards for both performance and statistical rigor. The paper's systematic approach to categorical feature handling also represents a major advance in dealing with high-cardinality features common in real-world applications.
+
+## Project Connection List
+
+- **Best Traditional ML Performance**: CatBoost achieved your highest traditional ML performance (F1=0.7820) with physicochemical features, demonstrating the effectiveness of ordered boosting and superior categorical feature handling
+- **Overfitting Resistance**: CatBoost's ordered boosting principle helped prevent overfitting in your biological dataset, contributing to more robust performance compared to other gradient boosting methods
+- **Feature Engineering Validation**: The paper's superior handling of structured features validated your comprehensive feature engineering approach, particularly with physicochemical properties that contain both numerical and categorical-like aspects
+- **Baseline Establishment**: CatBoost served as your strongest gradient boosting baseline, providing the performance threshold (F1=0.7820) that your TransformerV1 model (F1=0.8025) successfully exceeded
+- **Target Leakage Prevention**: The ordered TS methodology informed your data preprocessing approach, ensuring no inadvertent target leakage in your cross-validation and evaluation procedures
+- **Small Dataset Performance**: CatBoost's theoretical advantages on smaller datasets aligned with your phosphorylation prediction task scale, where the bias reduction becomes particularly valuable
+- **Regularization Framework**: CatBoost's built-in bias reduction techniques complemented your overall approach to model regularization and validation
+
+## Citation Strategy
+
+- **Introduction**: Cite when establishing gradient boosting baselines: "Among gradient boosting methods, CatBoost represents the current state-of-the-art for structured data prediction due to its principled approach to target leakage prevention (Prokhorenkova et al., 2018)"
+- **Methodology**: Reference when justifying traditional ML baseline selection: "We employed CatBoost as our primary gradient boosting method following Prokhorenkova et al. (2018), utilizing its ordered boosting algorithm to prevent prediction shift in our biological dataset"
+- **Results**: Use when presenting your breakthrough performance: "Our TransformerV1 model achieving F1=0.8025 represents a significant advance over the current best gradient boosting method, CatBoost (F1=0.7820), which implements state-of-the-art bias reduction techniques (Prokhorenkova et al., 2018)"
+- **Discussion**: Cite when discussing the evolution beyond traditional ML: "While CatBoost solved fundamental statistical issues in gradient boosting (Prokhorenkova et al., 2018), our results suggest that transformer-based approaches may represent the next evolutionary leap for biological sequence prediction"
+
+## Key Quotable Insights
+
+- **Problem Identification**: "We show in this paper that all existing implementations of gradient boosting face the following statistical issue... This finally leads to a prediction shift of the learned model"
+- **Theoretical Foundation**: "CatBoost outperforms other publicly available boosting implementations in terms of quality on a variety of datasets"
+- **Algorithmic Innovation**: "Both techniques were created to fight a prediction shift caused by a special kind of target leakage present in all currently existing implementations of gradient boosting algorithms"
+- **Performance Validation**: "Empirical results demonstrate that CatBoost outperforms leading GBDT packages and leads to new state-of-the-art results on common benchmarks"
+
+---
+
+# Paper 16/22: LightGBM: A Highly Efficient Gradient Boosting Decision Tree - Ke et al., 2017
+
+## Background Theory
+
+This paper introduces LightGBM, a revolutionary gradient boosting framework that addresses computational efficiency challenges in large-scale machine learning through two groundbreaking techniques. The core theoretical contribution centers on Gradient-based One-Side Sampling (GOSS), which recognizes that data instances with different gradients play fundamentally different roles in information gain computation. The key insight is that instances with larger gradients (under-trained examples) contribute more significantly to information gain, enabling intelligent sampling that retains accuracy while dramatically reducing computational cost.
+
+GOSS maintains all instances with large gradients (top a×100%) and randomly samples from small gradient instances (b×100%), compensating for distribution changes through a constant multiplier (1-a)/b when calculating information gain: Ṽⱼ(d) = 1/n[(∑xᵢ∈Aₗ gᵢ + (1-a)/b ∑xᵢ∈Bₗ gᵢ)²/nⱼₗ(d) + (∑xᵢ∈Aᵣ gᵢ + (1-a)/b ∑xᵢ∈Bᵣ gᵢ)²/nⱼᵣ(d)]. The second innovation, Exclusive Feature Bundling (EFB), exploits feature sparsity by bundling mutually exclusive features into single features, reducing complexity from O(#data × #feature) to O(#data × #bundle). The paper proves this bundling problem is NP-hard but provides an efficient greedy approximation algorithm with strong theoretical guarantees.
+
+## Literature Review Integration
+
+Published in 2017, this paper represents a critical evolution in gradient boosting efficiency, building upon XGBoost (2016) while introducing fundamental algorithmic innovations that dramatically improve computational performance. LightGBM bridges the gap between theoretical machine learning and practical scalability requirements, demonstrating how careful algorithm design can achieve 20× speedups while maintaining accuracy.
+
+The paper's significance lies in its paradigm shift from accuracy-focused to efficiency-aware gradient boosting. While XGBoost established gradient boosting dominance, LightGBM proves that substantial performance improvements are possible through intelligent sampling and feature bundling. The leaf-wise tree growth strategy represents another innovation, contrasting with traditional level-wise approaches. This work establishes LightGBM as a major force in the gradient boosting landscape, influencing subsequent developments and demonstrating that algorithmic efficiency can be achieved without sacrificing predictive performance.
+
+## Project Connection List
+
+- **Second-Best ML Performance**: LightGBM achieved your second-highest traditional ML performance across multiple feature types, consistently delivering strong F1 scores and often the highest AUC values in your evaluation
+- **Computational Efficiency**: LightGBM's speed advantages enabled your comprehensive hyperparameter tuning and extensive cross-validation experiments, making thorough evaluation feasible within practical time constraints
+- **Memory Optimization**: The efficient histogram-based algorithm and feature bundling techniques allowed processing of your biological dataset without memory constraints, supporting larger feature sets
+- **Baseline Establishment**: LightGBM served as a crucial comparison point for your gradient boosting evaluation, demonstrating the performance ceiling for efficiency-optimized methods
+- **Feature Handling**: The EFB algorithm effectively managed your diverse feature types (physicochemical, binary, AAC, DPC, TPC), particularly benefiting sparse feature representations
+- **Training Stability**: LightGBM's robust performance across different feature configurations provided reliable baselines for comparing against your TransformerV1 breakthrough (F1=0.8025)
+- **Scalability Validation**: The method's efficiency proved gradient boosting could handle your dataset scale effectively, validating traditional ML approaches before transitioning to transformers
+
+## Citation Strategy
+
+- **Introduction**: Cite when establishing efficiency importance in gradient boosting: "While gradient boosting methods like XGBoost achieved excellent performance, efficiency remained a critical limitation, leading to innovations like LightGBM that achieved 20× speedups through intelligent sampling (Ke et al., 2017)"
+- **Methodology**: Reference when justifying gradient boosting algorithm selection: "We included LightGBM in our evaluation due to its superior computational efficiency and proven performance across diverse datasets (Ke et al., 2017)"
+- **Results**: Use when presenting gradient boosting comparisons: "LightGBM achieved competitive performance with our best traditional ML results, validating its position as a leading gradient boosting implementation (Ke et al., 2017)"
+- **Discussion**: Cite when discussing traditional ML limitations: "Despite efficiency improvements in methods like LightGBM (Ke et al., 2017), our transformer-based approach achieved superior performance, suggesting fundamental advantages of protein language models for biological sequence prediction"
+
+## Key Quotable Insights
+
+- **Efficiency Achievement**: "LightGBM speeds up the training process of conventional GBDT by up to over 20 times while achieving almost the same accuracy"
+- **Theoretical Foundation**: "Data instances with larger gradients (i.e., under-trained instances) will contribute more to the information gain"
+- **Algorithmic Innovation**: "We prove that, since the data instances with larger gradients play a more important role in the computation of information gain, GOSS can obtain quite accurate estimation of the information gain with a much smaller data size"
+- **Practical Impact**: "Our experiments on multiple public datasets show that, LightGBM speeds up the training process of conventional GBDT by up to over 20 times while achieving almost the same accuracy"
+
+---
+
+# Paper 17/22: Attention Is All You Need - Vaswani et al., 2017
+
+## Background Theory
+
+This groundbreaking paper introduces the Transformer architecture, revolutionizing sequence modeling by proposing a neural network based entirely on attention mechanisms, completely dispensing with recurrence and convolutions. The core theoretical innovation lies in the self-attention mechanism, formulated as Attention(Q,K,V) = softmax(QK^T/√d_k)V, where queries, keys, and values are derived from the same input sequence. This elegant formulation allows each position to attend to all positions in constant time, fundamentally solving the sequential computation bottleneck that plagued RNNs.
+
+The paper establishes multi-head attention as the key architectural component: MultiHead(Q,K,V) = Concat(head_1,...,head_h)W^O, where each head_i = Attention(QW_i^Q, KW_i^K, VW_i^V). This design enables the model to jointly attend to information from different representation subspaces at different positions, capturing diverse types of relationships within sequences. The Transformer architecture combines this with position-wise feed-forward networks, residual connections, layer normalization, and positional encodings (using sinusoidal functions) to create a complete sequence-to-sequence model. The theoretical analysis demonstrates that self-attention layers achieve O(1) sequential operations compared to O(n) for recurrent layers, while maintaining O(1) maximum path length between any two positions, enabling efficient learning of long-range dependencies.
+
+## Literature Review Integration
+
+Published in 2017, this paper represents a watershed moment in deep learning, fundamentally transforming how sequence modeling is approached across all domains. The Transformer architecture broke the dominance of RNN-based models (LSTMs, GRUs) that had ruled sequence modeling since the early 2000s, establishing attention as the central mechanism for processing sequential data. This work laid the foundation for the entire transformer revolution that followed, including BERT (2018), GPT series, and crucially for your research, protein language models like ESM-1b and ESM-2.
+
+The paper's impact extends far beyond machine translation—it established the architectural principles that would enable protein language models to achieve unprecedented performance in biological sequence analysis. The self-attention mechanism's ability to capture long-range dependencies without sequential computation bottlenecks proved particularly valuable for protein sequences, where distant amino acids can have crucial structural and functional relationships. This work provides the fundamental theoretical framework that makes your TransformerV1 model possible, representing the deep learning revolution that enables modern protein analysis.
+
+## Project Connection List
+
+- **Architectural Foundation**: The Transformer architecture provides the fundamental framework for your TransformerV1 model that achieved breakthrough performance (F1=0.8025), with ESM-2 being a direct descendant of this original design
+- **Self-Attention Mechanism**: The core attention formula Attention(Q,K,V) = softmax(QK^T/√d_k)V underlies your TransformerV1's ability to capture long-range dependencies in protein sequences for phosphorylation site prediction
+- **Multi-Head Attention**: Your TransformerV1 leverages multi-head attention to simultaneously capture different types of relationships in protein sequences, from local amino acid interactions to distant structural dependencies
+- **Positional Encoding**: The sinusoidal positional encoding enables your model to understand amino acid positions within the ±3 context window, crucial for phosphorylation site prediction
+- **Parallelization Benefits**: The O(1) sequential operations enable efficient training of your TransformerV1 model compared to traditional RNN approaches, making large-scale protein language model pre-training feasible
+- **Long-Range Dependencies**: The O(1) maximum path length between positions allows your model to capture distant amino acid relationships that influence phosphorylation patterns
+- **Theoretical Justification**: The paper's complexity analysis validates why transformer-based approaches outperform traditional ML methods (your best traditional ML: F1=0.7820 vs TransformerV1: F1=0.8025)
+
+## Citation Strategy
+
+- **Introduction**: Cite when establishing the transformer revolution: "The introduction of the Transformer architecture (Vaswani et al., 2017) revolutionized sequence modeling across domains, providing the foundation for modern protein language models that can capture complex biological relationships"
+- **Methodology**: Reference when explaining your TransformerV1 architecture: "Our TransformerV1 model builds upon the fundamental Transformer architecture (Vaswani et al., 2017), utilizing self-attention mechanisms to process protein sequences and identify phosphorylation sites"
+- **Results**: Use when contextualizing your breakthrough: "The superior performance of our TransformerV1 model (F1=0.8025) validates the revolutionary impact of attention-based architectures (Vaswani et al., 2017) for biological sequence analysis"
+- **Discussion**: Cite when discussing the paradigm shift: "The Transformer architecture (Vaswani et al., 2017) enabled a fundamental shift from traditional feature engineering to learned representations, as demonstrated by our model's ability to surpass carefully engineered physicochemical features"
+
+## Key Quotable Insights
+
+- **Revolutionary Claim**: "We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely"
+- **Efficiency Achievement**: "The Transformer allows for significantly more parallelization and can reach a new state of the art in translation quality after being trained for as little as twelve hours on eight P100 GPUs"
+- **Theoretical Foundation**: "A self-attention layer connects all positions with a constant number of sequentially executed operations, whereas a recurrent layer requires O(n) sequential operations"
+- **Long-Range Dependencies**: "The shorter these paths between any combination of positions in the input and output sequences, the easier it is to learn long-range dependencies"
+
+---
+
+
+
