@@ -1,4 +1,4 @@
-# Transforming Phosphorylation Prediction: A Story of Medical AI Innovation
+# Transforming Phosphorylation Prediction: A Story of Medical AI Innovation 
 
 ## Executive Summary
 
@@ -38,7 +38,7 @@ The pharmaceutical industry devoted $83 billion to R&D expenditures in 2019 alon
 
 ### 3.1 The Big Tech Approach
 
-Technology giants have recognized the transformative potential of AI in drug discovery and are investing accordingly. Google's Alphabet has positioned itself as a leader through multiple initiatives:
+Technology giants have recognized the transformative potential of AI in drug discovery and are investing accordingly. Google's Alphabet has positioned itself as a leader through multiple initiatives :
 
 **Isomorphic Labs**, spun out from DeepMind in 2021, represents Alphabet's most ambitious drug discovery venture [11]. The company has:
 - Raised £182 million in new shares as of 2024 [12]
