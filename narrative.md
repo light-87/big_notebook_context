@@ -197,9 +197,9 @@ The story of this research—individual innovation achieving breakthrough result
 
 ## References
 
-[1] S. Tenreiro et al., "Phosphorylation-driven aggregative proteins in neurodegenerative diseases: implications and therapeutics," *Frontiers in Molecular Neuroscience*, vol. 16, 2023.
+[1] A. Espargaró and R. Sabate, "Phosphorylation-driven aggregative proteins in neurodegenerative diseases: implications and therapeutics," *Frontiers in Molecular Neuroscience*, vol. 16, 2023.
 
-[2] R. Rojas et al., "Unlocking the therapeutic potential of protein kinase inhibitors in neurodegenerative and psychiatric disorders," *Exploration in Drug Science*, vol. 2, no. 1, pp. 1-25, 2025.
+[2] A. Asir R. V., P. Buzaeva, and I. Michaelevski, "Unlocking the therapeutic potential of protein kinase inhibitors in neurodegenerative and psychiatric disorders," *Exploration in Drug Science*, vol. 2, no. 1, pp. 1-25, 2025.
 
 [3] J. A. DiMasi, H. G. Grabowski, and R. W. Hansen, "Innovation in the pharmaceutical industry: new estimates of R&D costs," *Journal of Health Economics*, vol. 47, pp. 20-33, 2016.
 
