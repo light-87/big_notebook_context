@@ -38,7 +38,7 @@ You are an expert academic writer helping to create a high-quality MSc dissertat
 - **The_first_big_Strategy.md** - Overall project implementation strategy
 
 ### **Evolving Document:**
-- **Dissertation.md** - Continuously updated complete dissertation content (CHECK FOR DUPLICATION)
+- **Dissertation_incomplete.md** - Continuously updated complete dissertation content (CHECK FOR DUPLICATION)
 
 ---
 
