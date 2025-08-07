@@ -120,23 +120,23 @@
 - [🟠] Target: 500-700 words, 3-4 citations
 
 ### **Task 3.6: Section 2.6 - Ensemble Methods** ⚪
-- [ ] **Classical ensemble theory**: Voting, bagging, boosting
-- [ ] **Biological applications**: Multi-model combination successes
-- [ ] **Meta-learning**: Advanced selection approaches
-- [ ] Target: 400-500 words, 2-3 citations
+- [🟠] **Classical ensemble theory**: Voting, bagging, boosting
+- [🟠] **Biological applications**: Multi-model combination successes
+- [🟠] **Meta-learning**: Advanced selection approaches
+- [🟠] Target: 400-500 words, 2-3 citations
 
 ### **Task 3.7: Section 2.7 - Research Gaps** ⚪
-- [ ] **Benchmark crisis**: "No valid benchmarks" (Esmaili et al., 2023)
-- [ ] **Generalization failure**: Poor independent dataset performance
-- [ ] **Transformer underexploration**: Limited ESM phosphorylation application
-- [ ] **Integration opportunity**: Multi-paradigm ensemble potential
-- [ ] Target: 400-500 words
+- [🟠] **Benchmark crisis**: "No valid benchmarks" (Esmaili et al., 2023)
+- [🟠] **Generalization failure**: Poor independent dataset performance
+- [🟠] **Transformer underexploration**: Limited ESM phosphorylation application
+- [🟠] **Integration opportunity**: Multi-paradigm ensemble potential
+- [🟠] Target: 400-500 words
 
 ### **Task 3.8: Chapter 2 Review and Polish** ⚪
-- [ ] Check word count (target: 4,000-5,000 total)
-- [ ] Verify 15-18 citations properly distributed
-- [ ] Ensure critical analysis, not just summary
-- [ ] Confirm clear gap identification for your work
+- [🟠] Check word count (target: 4,000-5,000 total)
+- [🟠] Verify 15-18 citations properly distributed
+- [🟠] Ensure critical analysis, not just summary
+- [🟠] Confirm clear gap identification for your work
 
 ---
 
