@@ -280,6 +280,106 @@ Cross-validation procedures employed stratified group K-fold methodology with 5 
 \label{fig:split_distribution}
 \end{figure}
 
+\section{Feature Engineering Framework}
+
+The feature engineering pipeline was designed to comprehensively capture diverse aspects of protein sequence information surrounding phosphorylation sites through systematic extraction and optimization of multiple complementary feature types, addressing the critical challenge of transforming raw protein sequences into meaningful numerical representations suitable for machine learning analysis.
+
+\subsection{Multi-Modal Feature Architecture}
+
+A comprehensive five-feature architecture was implemented to capture different biological and computational perspectives of protein sequence information.
+
+The five feature types were selected based on their complementary information content: amino acid composition features capture the overall compositional signature of sequence windows, dipeptide and tripeptide composition features encode local sequence patterns and motifs, binary encoding preserves position-specific amino acid information, and physicochemical properties incorporate the biochemical characteristics that govern protein structure and function. 
+
+\subsection{Individual Feature Type Methodologies}
+
+\subsubsection{Amino Acid Composition (AAC) Features}
+Amino acid composition features represent the frequency distribution of the 20 standard amino acids within sequence windows of ±10 residues around each potential phosphorylation site. The extraction process calculates the normalized count of each amino acid type within the 21-residue window, producing a 20-dimensional feature vector that captures the compositional signature of the local sequence environment.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\textwidth]{images/aac.png}
+\caption{AAC (Amino Acid Composition) feature extraction methodology showing the systematic process of transforming protein sequences into numerical feature vectors. The diagram illustrates how a protein sequence with a potential phosphorylation site (highlighted in red) is processed to count the frequency of each of the 20 standard amino acids within the sequence window, resulting in a 20-dimensional feature vector where each element represents the normalized count of a specific amino acid (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y) in the local sequence environment.}
+\label{fig:aac_extraction}
+\end{figure}
+
+To enhance the discriminative power of AAC features, polynomial interaction terms were systematically explored to capture non-linear relationships between amino acid frequencies. The polynomial expansion generates interaction features between different amino acid counts, enabling the model to detect compositional patterns where specific combinations of amino acids contribute synergistically to phosphorylation potential beyond their individual contributions.
+
+\subsubsection{Dipeptide Composition (DPC) Features}
+Dipeptide composition features encode local sequence patterns by quantifying the frequency of all possible two-amino-acid combinations within sequence windows. This approach generates 400 features corresponding to the 20×20 possible dipeptide combinations, capturing short-range sequential dependencies and local motifs that may be critical for kinase recognition specificity.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/dpc.png}
+\caption{DPC (Dipeptide Composition) feature extraction methodology demonstrating the sliding window approach for capturing local sequence patterns. The diagram shows how a protein sequence with a phosphorylation site (highlighted in red) undergoes systematic dipeptide extraction through a sliding window process (MK→KT→TA, etc.), followed by enumeration of all extracted dipeptides, resulting in a 400-dimensional feature vector representing the normalized frequencies of all possible two-amino-acid combinations (20² = 400 features) within the sequence window.}
+\label{fig:dpc_extraction}
+\end{figure}
+
+The dipeptide approach extends beyond simple amino acid composition by preserving information about adjacent amino acid relationships, which are particularly important for capturing substrate recognition motifs and local structural preferences. Each dipeptide frequency is normalized by the total number of possible dipeptide positions within the sequence window to ensure comparable feature magnitudes across sequences of different compositions.
+
+\subsubsection{Tripeptide Composition (TPC) Features}
+Tripeptide composition features extend sequence pattern analysis to capture longer-range dependencies by quantifying the frequency of three-amino-acid combinations within sequence windows. This approach generates 8,000 potential features (20³ combinations), representing the most comprehensive but also the most sparse feature representation in the framework.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/tpc.png}
+\caption{TPC (Tripeptide Composition) feature extraction methodology illustrating the sliding window approach for capturing extended sequence patterns. The diagram demonstrates how a protein sequence with a phosphorylation site (highlighted in red) undergoes systematic tripeptide extraction through a sliding window process (MKT→KTA→TAY→AYI, etc.), followed by comprehensive enumeration of all extracted tripeptides, resulting in an 8000-dimensional feature space representing the normalized frequencies of all possible three-amino-acid combinations (20³ = 8000 features) within the sequence window.}
+\label{fig:tpc_extraction}
+\end{figure}
+
+Given the high dimensionality and potential sparsity of tripeptide features, careful preprocessing was implemented to focus on biologically relevant and statistically robust tripeptide patterns. The extraction process identifies the most frequent tripeptide combinations across the dataset and selects the top 800 tripeptides based on occurrence frequency, ensuring sufficient statistical support while maintaining computational tractability.
+
+\subsubsection{Binary Encoding Features}
+Binary encoding features preserve complete position-specific amino acid information through one-hot encoding of each amino acid at each position within the sequence window. For a 21-residue window (±10 around the central position), this approach generates 820 binary features (41 positions × 20 amino acids), creating a sparse but complete representation of positional amino acid patterns.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/be.png}
+\caption{Binary Encoding feature extraction methodology demonstrating position-specific one-hot encoding of amino acids within sequence windows. The diagram illustrates how a protein sequence with a phosphorylation site (highlighted in red at position 0) undergoes systematic position-specific encoding, where each amino acid at each relative position (-3 to +3 shown as example) is converted to a 20-dimensional binary vector with exactly one element set to 1. The complete binary feature vector concatenates all position-specific encodings, resulting in a high-dimensional sparse representation that preserves complete positional and amino acid identity information (820 features for ±10 window: 41 positions × 20 amino acids).}
+\label{fig:binary_extraction}
+\end{figure}
+
+This encoding method maintains the precise spatial relationships between amino acids and their positions relative to the potential phosphorylation site, enabling the detection of position-dependent preferences and structural constraints. The binary representation provides the most detailed positional information but requires careful dimensionality management due to its inherent sparsity and high feature count.
+
+\subsubsection{Physicochemical Properties Features}
+Physicochemical properties features incorporate the underlying biochemical characteristics that govern protein structure, dynamics, and function by applying standardized amino acid property vectors to each position within sequence windows. This approach utilizes 16 distinct physicochemical properties per amino acid, including hydrophobicity, charge, size, and structural preferences, applied across the 41-position window to generate 656 features.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/PC.png}
+\caption{Physicochemical Properties feature extraction methodology demonstrating the systematic transformation of amino acid sequences into biochemical property vectors. The diagram illustrates how a protein sequence with a phosphorylation site (highlighted in red) undergoes position-specific mapping to 16 standardized physicochemical properties per amino acid, including hydrophobicity, hydrophilicity, buriability, residue volume, polarity, localized electrical effect, alpha-helix and beta-strand propensities, and other structural characteristics. Each position contributes 16 property values, resulting in a 656-dimensional feature vector (41 positions × 16 properties) that captures the underlying chemical environment around phosphorylation sites.}
+\label{fig:pc_extraction}
+\end{figure}
+
+The physicochemical approach bridges the gap between sequence information and the underlying chemistry that determines protein behavior, providing features that directly relate to the biophysical processes governing kinase-substrate interactions. Property values are standardized and normalized to ensure comparable feature scales and biological interpretability.
+
+\subsection{Dimensionality Challenge and Optimization Strategy}
+
+The combination of all five feature types generates a high-dimensional feature space with over 8,400 total features, presenting significant computational and methodological challenges including the curse of dimensionality, increased overfitting risk, and computational complexity for model training and inference. This dimensionality challenge necessitated the development of a systematic optimization framework to achieve efficient and effective feature representations.
+
+An exhaustive dimensionality reduction strategy was implemented to systematically evaluate multiple reduction techniques for each feature type individually. The optimization approach recognizes that different feature types exhibit distinct characteristics and may benefit from different dimensionality reduction methods, avoiding the assumption that a single approach would be optimal across all feature modalities.
+
+\subsection{Systematic Dimensionality Reduction Framework}
+
+\subsubsection{Multi-Method Evaluation Approach}
+
+For each feature type, a comprehensive evaluation was conducted across multiple dimensionality reduction techniques including Principal Component Analysis (PCA) for linear dimensionality reduction and variance preservation, mutual information feature selection for identifying features with highest predictive relevance, variance thresholding for removing low-information features, and hybrid approaches combining multiple techniques for enhanced optimization.
+
+The evaluation framework systematically tested different parameter configurations for each method, including various numbers of principal components for PCA, different numbers of selected features for mutual information approaches, and diverse variance thresholds for feature filtering. This exhaustive search approach ensures identification of the optimal reduction strategy for each feature type based on empirical performance rather than theoretical assumptions.
+
+\subsubsection{Feature-Specific Optimization}
+
+Each feature type was subjected to independent optimization experiments to identify the most effective dimensionality reduction approach and optimal target dimensionality. The optimization process balanced multiple objectives including maintenance or improvement of predictive performance, significant reduction in computational complexity, preservation of biological interpretability, and statistical robustness across cross-validation folds.
+
+The feature-specific approach recognizes that optimal strategies vary significantly across feature types: compositional features may benefit from different techniques than positional features, sparse features like tripeptides may require noise reduction approaches, and dense features like physicochemical properties may need minimal reduction. This tailored optimization ensures that each feature type contributes maximally to the final predictive system.
+
+\subsection{Integrated Feature Engineering Pipeline}
+
+The optimized features from each type are systematically combined into a unified feature matrix suitable for machine learning model training. The integration process ensures consistent data quality through comprehensive validation including detection and handling of missing values, identification and correction of infinite or invalid entries, normalization of feature scales for comparable magnitudes, and validation of matrix dimensions and integrity.
+
+The final feature engineering pipeline produces multiple output configurations including individual optimized feature matrices for specialized model training, combined feature matrix integrating all optimized feature types, metadata preservation for biological interpretation, and comprehensive feature statistics for methodological reporting. This flexible architecture enables both feature-specific analysis and integrated modeling approaches while maintaining full traceability of the optimization process.
+
+The systematic feature engineering framework establishes the foundation for comprehensive machine learning evaluation by transforming raw protein sequences into optimized numerical representations that capture the essential biological and computational characteristics necessary for accurate phosphorylation site prediction while maintaining computational efficiency and biological interpretability.
+
 \section{Machine Learning Implementation}
 
 The machine learning implementation employed a comprehensive two-phase strategy combining systematic feature optimization with rigorous model evaluation to achieve optimal performance across multiple algorithmic paradigms. This approach ensures both methodological rigor and practical applicability while maintaining statistical robustness through proper cross-validation and significance testing.
@@ -357,6 +457,13 @@ The 8M parameter variant was selected based on computational constraints and eff
 TransformerV1 implements a foundational architecture designated as BasePhosphoTransformer, establishing a robust baseline for transformer-based phosphorylation prediction through proven design principles. The architecture employs a streamlined pipeline optimized for binary classification tasks while leveraging the full representational power of pre-trained protein language models.
 
 The model architecture follows a hierarchical processing strategy beginning with sequence tokenization using the ESM-2 tokenizer to convert amino acid sequences into numerical representations compatible with the transformer backbone. The pre-trained ESM-2 encoder processes these tokenized sequences to generate contextual embeddings with 320 dimensions per amino acid position, capturing both local and global sequence relationships through self-attention mechanisms.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\textwidth]{images/trans.png}
+\caption{Comprehensive comparison of TransformerV1 and TransformerV2 architectures for phosphorylation site prediction. The left panel shows TransformerV1's streamlined BasePhosphoTransformer design with 8.4M parameters, featuring ESM-2 encoder processing, ±3 context window extraction, simple feature concatenation (2,240 dimensions), and progressive dense layer classification. The right panel illustrates TransformerV2's advanced HierarchicalAttentionTransformer with 12M parameters, incorporating learnable position embeddings, multi-head attention with 4 specialized heads, hierarchical fusion mechanisms combining local and global patterns, attention pooling, and sophisticated residual connections for enhanced biological pattern recognition.}
+\label{fig:transformer_architectures}
+\end{figure}
 
 Context window extraction focuses the model's attention on biologically relevant sequence regions by extracting a ±3 amino acid window around each potential phosphorylation site. This 7-position window captures immediate sequence context while maintaining computational efficiency and biological interpretability. The context window approach recognizes that kinase recognition motifs typically span 3-7 amino acids, making the ±3 window optimal for capturing essential recognition patterns.
 
