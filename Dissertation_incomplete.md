@@ -216,6 +216,18 @@ These converging challenges create urgent research opportunities that could fund
 Addressing these gaps requires research that simultaneously advances methodological innovation while establishing the evaluation rigor necessary for clinical translation. The integration of transformer-based approaches with traditional machine learning through sophisticated ensemble methods, evaluated using rigorous benchmarking standards, represents the convergence of technological capability with methodological rigor necessary for developing computational tools capable of accelerating drug discovery and advancing therapeutic development for the millions of patients affected by phosphorylation-related diseases.
 
 \chapter{Methodology}
+
+This chapter presents a comprehensive methodology designed to systematically evaluate and optimize phosphorylation site prediction through multiple complementary approaches. The experimental framework encompasses traditional machine learning methods, modern transformer architectures, and advanced ensemble techniques, providing thorough coverage of the computational prediction landscape while ensuring reproducible and statistically rigorous results.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/pipeline.png}
+\caption{Complete methodology pipeline demonstrating the systematic approach from initial setup through final ensemble analysis. The pipeline encompasses six major phases: (1) Setup with configuration and tracking (seed=42 for reproducibility), (2) Data loading from EPSD and UniProt sources yielding 62K balanced samples, (3) Feature extraction using five complementary approaches (AAC, DPC, TPC, Binary, Physicochemical) generating 2,696+ features, (4) Protein-based data splitting (70/15/15) with cross-validation readiness, (5) Machine learning evaluation of 30+ model-feature combinations alongside transformer architectures using ESM-2 fine-tuning, and (6) Advanced ensemble methods culminating in breakthrough F1=0.8160 performance. The pipeline demonstrates the systematic progression from traditional ML optimization through transformer innovation to ensemble excellence, ensuring comprehensive evaluation across all major computational paradigms.}
+\label{fig:methodology_pipeline}
+\end{figure}
+
+The methodology is structured to address the fundamental challenges of biological sequence prediction through a multi-paradigm approach that systematically explores feature representation, model architecture, and ensemble combination strategies. Each phase of the pipeline builds upon previous results while maintaining experimental rigor and statistical validity. The following sections detail each component of this comprehensive framework, providing sufficient detail for reproducibility while highlighting the strategic decisions that enabled breakthrough performance.
+
 \section{Dataset Preparation}
 
 The dataset construction process involved comprehensive integration of phosphorylation site annotations from the EPSD database with corresponding protein sequences from UniProt, followed by rigorous quality control and balanced sampling procedures to ensure robust model training and evaluation.
