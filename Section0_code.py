@@ -389,3 +389,10 @@ if summary['completed_steps'] > 0:
 
 print("\nSetup completed successfully!")
 print("="*80)
+
+# ============================================================================
+# Define FORCE_RETRAIN for future sections
+# ============================================================================
+
+# Set this to True if you want to force recomputation of any section
+FORCE_RETRAIN = True
