@@ -193,10 +193,22 @@ for model_name, pred_data in transformer_predictions.items():
     all_predictions[model_name] = pred_data
 
 # Add ML predictions
+# ML predictions use 'pred_binary' and 'pred_proba' keys
 for feature_type, pred_data in ml_predictions.items():
+    # Handle different possible key names
+    if 'pred_binary' in pred_data:
+        preds = pred_data['pred_binary']
+        probs = pred_data.get('pred_proba', pred_data['pred_binary'].astype(float))
+    elif 'predictions' in pred_data:
+        preds = pred_data['predictions']
+        probs = pred_data.get('probabilities', pred_data['predictions'].astype(float))
+    else:
+        print(f"Warning: Unknown structure for {feature_type}: {list(pred_data.keys())}")
+        continue
+
     all_predictions[f'ml_{feature_type}'] = {
-        'predictions': pred_data['predictions'],
-        'probabilities': pred_data.get('probabilities', pred_data['predictions'].astype(float))
+        'predictions': preds,
+        'probabilities': probs
     }
 
 # Compute per-residue metrics for all models
